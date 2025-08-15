@@ -47,6 +47,7 @@
                 <a
                     href="https://condicaoatual.com.br/praia-dos-ingleses/"
                     style="text-decoration: none; color: aqua"
+                    target="_blank"
                 >
                     <div class="text-center mr-6">
                         <span class="text-h4">🎥</span>
@@ -57,6 +58,7 @@
                 <a
                     href="https://condicaoatual.com.br/praia-mole/"
                     style="text-decoration: none; color: aqua"
+                    target="_blank"
                 >
                     <div class="text-center mr-6">
                         <span class="text-h4">🎥</span>
