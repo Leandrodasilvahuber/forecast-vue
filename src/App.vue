@@ -7,8 +7,22 @@
                         <Top></Top>
                     </v-col>
                 </v-row>
-                <v-row>
-                    <div v-if="weatherData">
+                <v-row v-if="loading">
+                    <v-col class="text-center">
+                        <v-progress-circular indeterminate color="primary" />
+                        <p class="mt-4">Carregando dados meteorológicos...</p>
+                    </v-col>
+                </v-row>
+                <v-row v-else-if="error">
+                    <v-col>
+                        <v-alert type="error" :text="error" />
+                        <v-btn @click="loadWeather" color="primary" class="mt-4">
+                            Tentar Novamente
+                        </v-btn>
+                    </v-col>
+                </v-row>
+                <v-row v-else-if="weatherData">
+                    <div>
                         <v-col>
                             <v-card class="weather-card" elevation="2">
                                 <Today
@@ -28,24 +42,23 @@
     </v-app>
 </template>
 
-<script setup>
-    import { ref } from "vue";
+<script setup lang="ts">
+    // Vue imports
+    import { onMounted } from "vue";
+
+    // Components
     import Today from "./components/Today.vue";
     import Partial from "./components/Partial.vue";
     import Week from "./components/Week.vue";
     import Top from "./components/Top.vue";
-    import axios from "axios";
-    import { onMounted } from "vue";
 
-    const weatherData = ref(null);
+    // Composables
+    import { useWeather } from "./composables/useWeather";
 
-    onMounted(async () => {
-        try {
-            const responseToday = await axios.get(import.meta.env.VITE_URL_API);
-            weatherData.value = responseToday.data.forecast;
-        } catch (error) {
-            console.error("Erro ao buscar dados:", error);
-        }
+    const { weatherData, loading, error, loadWeather } = useWeather();
+
+    onMounted(() => {
+        loadWeather();
     });
 </script>
 

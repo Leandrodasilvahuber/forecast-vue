@@ -1,9 +1,11 @@
 <script setup lang="ts">
     import { computed } from "vue";
+    import type { WeatherData } from "@/types/weather";
+    import { CAMERAS } from "@/config/constants";
 
-    const props = defineProps({
-        weatherData: Object,
-    });
+    const props = defineProps<{
+        weatherData: WeatherData;
+    }>();
 
     const currentDate = computed(() => {
         return new Date()
@@ -45,25 +47,29 @@
             </div>
             <div class="d-flex align-end justify-end w-100 mb-3">
                 <a
-                    href="https://condicaoatual.com.br/praia-dos-ingleses/"
+                    :href="CAMERAS.zinga.url"
                     style="text-decoration: none; color: aqua"
                     target="_blank"
+                    rel="noopener noreferrer"
+                    :aria-label="`Ver câmera ao vivo da ${CAMERAS.zinga.name}`"
                 >
                     <div class="text-center mr-6">
-                        <span class="text-h4">🎥</span>
+                        <span class="text-h4" role="img" :aria-label="CAMERAS.zinga.icon">{{ CAMERAS.zinga.icon }}</span>
                         <br />
-                        <span>Zinga</span>
+                        <span>{{ CAMERAS.zinga.name }}</span>
                     </div>
                 </a>
                 <a
-                    href="https://condicaoatual.com.br/praia-mole/"
+                    :href="CAMERAS.mole.url"
                     style="text-decoration: none; color: aqua"
                     target="_blank"
+                    rel="noopener noreferrer"
+                    :aria-label="`Ver câmera ao vivo da ${CAMERAS.mole.name}`"
                 >
                     <div class="text-center mr-6">
-                        <span class="text-h4">🎥</span>
+                        <span class="text-h4" role="img" :aria-label="CAMERAS.mole.icon">{{ CAMERAS.mole.icon }}</span>
                         <br />
-                        <span>Mole</span>
+                        <span>{{ CAMERAS.mole.name }}</span>
                     </div>
                 </a>
             </div>

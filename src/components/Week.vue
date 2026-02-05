@@ -1,9 +1,11 @@
 <script setup lang="ts">
     import { computed } from "vue";
+    import type { WeatherData } from "@/types/weather";
+    import { getTemperatureClass } from "@/utils/temperature";
 
-    const props = defineProps({
-        weatherData: Object,
-    });
+    const props = defineProps<{
+        weatherData: WeatherData;
+    }>();
 
     const forecast = computed(() => props.weatherData.forecast);
 </script>
@@ -59,20 +61,10 @@
                                 {{ day.condicao.text.substring(0, 12) }}
                             </div>
 
-                            <div
-                                style="font-size: 21px !important"
-                                class="text-caption font-weight-bold mb-2"
-                            >
-                                <div v-if="day.currentTemp > 15">
-                                    <span class="text-red"
-                                        >{{ day.currentTemp }}°</span
-                                    >
-                                </div>
-                                <div v-else>
-                                    <span class="text-blue"
-                                        >{{ day.currentTemp }}°</span
-                                    >
-                                </div>
+                            <div class="day-temp text-caption font-weight-bold mb-2">
+                                <span :class="getTemperatureClass(day.currentTemp)">
+                                    {{ day.currentTemp }}°
+                                </span>
                             </div>
 
                             <v-divider></v-divider>

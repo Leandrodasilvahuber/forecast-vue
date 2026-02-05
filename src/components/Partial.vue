@@ -1,9 +1,10 @@
 <script setup lang="ts">
     import { computed } from "vue";
+    import type { WeatherData } from "@/types/weather";
 
-    const props = defineProps({
-        weatherData: Object,
-    });
+    const props = defineProps<{
+        weatherData: WeatherData;
+    }>();
 
     const weatherDetails = computed(() => [
         {
